@@ -10,20 +10,124 @@ const menuBtn = document.querySelector(".menu-btn");
 // "움직임 줄이기" 설정을 켠 사용자인지
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// 새로고침하면 항상 맨 위(히어로)에서 시작 (브라우저의 스크롤 위치 복원 끄기)
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+window.scrollTo(0, 0);
+
 
 /* =========================
    Hero 등장 애니메이션
 ========================= */
 
-window.addEventListener("load", () => {
+const startHero = () => {
     // 초기 상태가 한 번 그려진 뒤 클래스를 붙여야 transition이 동작
     requestAnimationFrame(() => {
         root.classList.add("is-loaded");
 
-        // 등장 애니메이션이 끝나면 카드 기울기 반응을 빠르게 전환
-        setTimeout(() => root.classList.add("is-ready"), 1400);
+        // 등장 애니메이션이 끝나면 카드 기울기·글자 호버 반응을 빠르게 전환
+        setTimeout(() => root.classList.add("is-ready"), 1900);
     });
+};
+
+window.addEventListener("load", () => {
+    if (!root.classList.contains("has-intro")) {
+        startHero();
+        return;
+    }
+
+    // 인트로: 로고를 잠깐 보여준 뒤 커튼을 걷고 히어로 등장
+    setTimeout(() => {
+        root.classList.add("intro-done");
+
+        setTimeout(startHero, 450);
+        setTimeout(() => document.querySelector(".intro")?.remove(), 1200);
+    }, 1300);
 });
+
+
+/* =========================
+   Hero 제목 글자 쪼개기 (글자별 등장 + 호버)
+========================= */
+
+if (!reduceMotion) {
+    const h1 = document.querySelector(".hero h1");
+
+    if (h1) {
+        h1.setAttribute("aria-label", h1.textContent.replace(/\s+/g, " ").trim());
+
+        let index = 0;
+
+        const splitNode = (node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const frag = document.createDocumentFragment();
+                [...node.textContent].forEach((char) => {
+                    if (!char.trim()) {
+                        frag.append(char);
+                        return;
+                    }
+                    const span = document.createElement("span");
+                    span.className = "ch";
+                    span.setAttribute("aria-hidden", "true");
+                    span.style.setProperty("--i", index++);
+                    span.textContent = char;
+                    frag.append(span);
+                });
+                node.replaceWith(frag);
+            } else {
+                [...node.childNodes].forEach(splitNode);
+            }
+        };
+
+        h1.querySelectorAll(".line > span").forEach((lineInner) => {
+            index = 0;
+            lineInner.classList.add("is-split");
+            splitNode(lineInner);
+        });
+    }
+}
+
+
+/* =========================
+   버튼: 마그네틱 + 텍스트 롤 (마우스가 있는 기기에서만)
+========================= */
+
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion) {
+    document.querySelectorAll(".btn").forEach((btn) => {
+        // 텍스트를 롤 구조로 감싸기 (화살표 아이콘은 그대로 둠)
+        [...btn.childNodes].forEach((node) => {
+            if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return;
+
+            const label = node.textContent.trim();
+            const roll = document.createElement("span");
+            roll.className = "roll";
+            roll.dataset.text = label;
+            roll.setAttribute("aria-hidden", "true");
+            roll.innerHTML = `<span class="roll-in"></span>`;
+            roll.firstChild.textContent = label;
+
+            // 스크린리더용 원본 텍스트
+            const sr = document.createElement("span");
+            sr.className = "sr-only";
+            sr.textContent = label;
+
+            node.replaceWith(roll, sr);
+        });
+
+        btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);    // -1 ~ 1
+            const y = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+            btn.style.setProperty("--tx", `${x * 3}px`);     // 최대 ±3px
+            btn.style.setProperty("--ty", `${y * 2}px`);     // 최대 ±2px
+        });
+
+        btn.addEventListener("mouseleave", () => {
+            btn.style.setProperty("--tx", "0px");
+            btn.style.setProperty("--ty", "0px");
+        });
+    });
+}
 
 
 /* =========================
@@ -250,9 +354,9 @@ const updateParallax = () => {
         const rect = img.parentElement.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > vh) return;
 
-        // 화면 중앙에서 얼마나 벗어났는지 (-1 ~ 1) → 최대 ±16px 이동
+        // 화면 중앙에서 얼마나 벗어났는지 (-1 ~ 1) → 최대 ±8px 이동
         const progress = (rect.top + rect.height / 2 - vh / 2) / (vh / 2 + rect.height / 2);
-        img.style.setProperty("--py", `${progress * -16}px`);
+        img.style.setProperty("--py", `${progress * -8}px`);
     });
 
     parallaxTicking = false;
