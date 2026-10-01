@@ -232,19 +232,25 @@ img {
 
     background-color: var(--paper);
 
-    /* 은은한 도트 그리드 배경 */
-    background-image: radial-gradient(#dcdcd7 1px, transparent 1px);
-    background-size: 24px 24px;
-    background-position: center;
-
     overflow: hidden;
 }
 
-/* 가장자리로 갈수록 도트가 사라지게 */
+/* 마우스에 반응하는 링 필드 (script.js에서 그림) */
+.ring-field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 가장자리로 갈수록 링이 사라지게 */
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 1;
 
     background: radial-gradient(ellipse at 40% 50%, transparent 30%, var(--paper) 75%);
     pointer-events: none;
@@ -252,6 +258,7 @@ img {
 
 .hero-inner {
     position: relative;
+    z-index: 2;
     width: var(--width);
 
     margin: 0 auto;
@@ -1771,3 +1778,115 @@ img {
         clip-path: none;
     }
 }
+
+
+/* =========================
+   Crystal Glow 제목 (히어로 인사말·이름에 마우스를 올리면 빛이 훑고 지나가고 반짝임)
+   - 조절: --glow-shadow(그림자색) --glare(빛 색) --spark(반짝이 색) --glare-speed(시간)
+========================= */
+
+.hero h1 {
+    --glow-shadow: #3d7a5a;
+    --glare: rgba(255, 255, 255, .95);
+    --spark: #4fb584;
+    --glare-speed: 1s;
+}
+
+/* 등장 애니메이션이 끝난 뒤에는 그림자·반짝이가 잘리지 않게 */
+.is-ready .hero h1 .line {
+    overflow: visible;
+}
+
+.glow-text {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    display: inline-block;
+}
+
+/* 글자 뒤에 깔리는 색 그림자 */
+.glow-text::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    color: var(--glow-shadow);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 글자 위를 훑고 지나가는 빛 */
+.glow-text::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(105deg,
+        transparent 35%, var(--glare) 50%, transparent 65%);
+    background-size: 300% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 이름 주변 반짝이 5개 */
+.sparkle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+
+    background: var(--spark);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.sparkle.s1 { left: -18px;  top: 6px;     width: 30px; height: 30px; }
+.sparkle.s2 { left: 42%;    top: -14px;   width: 20px; height: 20px; }
+.sparkle.s3 { right: -20px; top: 10%;     width: 26px; height: 26px; }
+.sparkle.s4 { left: 18%;    bottom: -10px; width: 18px; height: 18px; }
+.sparkle.s5 { right: 22%;   bottom: -8px;  width: 22px; height: 22px; }
+
+@media (hover: hover) and (pointer: fine) {
+    .is-ready .hero h1:hover .glow-text::before {
+        opacity: 1;
+        transform: translate(.025em, .025em);
+        transition: transform .5s cubic-bezier(.34, 1.56, .64, 1), opacity .2s;
+    }
+
+    .is-ready .hero h1:hover .glow-text::after {
+        opacity: 1;
+        animation: glareSweep var(--glare-speed) var(--ease) 1 forwards;
+    }
+
+    .is-ready .hero h1:hover .sparkle {
+        animation: sparkleTwinkle 1.2s ease-in-out infinite;
+    }
+
+    .is-ready .hero h1:hover .s2 { animation-delay: .2s; }
+    .is-ready .hero h1:hover .s3 { animation-delay: .4s; }
+    .is-ready .hero h1:hover .s4 { animation-delay: .6s; }
+    .is-ready .hero h1:hover .s5 { animation-delay: .8s; }
+}
+
+@keyframes glareSweep {
+    from { background-position: 100% 0; }
+    to   { background-position: 0 0; }
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50%      { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sparkle { display: none; }
+}
+
