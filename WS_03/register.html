@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/navbar.css" type="text/css" />
+    <link rel="stylesheet" href="css/common.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+    <title>IT's KOSTA - register</title>
+
+    <style>
+        main {
+            padding: 20px 0px;
+        }
+        main h1 {
+            text-align: center;
+            padding: 5px;
+        }
+
+        main form {
+            height: 350px;
+            border: 1px solid gray;
+            padding: 40px;
+        }
+
+        main .form-item {
+        margin-bottom: 10px;
+        }
+
+        main .form-item label {
+            display: inline-block;
+            width: 150px;
+            font-size: 18px;
+
+        }
+
+        main .form-item input {
+        font-size: 18px;
+        border: 1px skyblue solid;
+        width: 200px;
+        }
+
+        main form button {
+        float: right;
+        width: 120px;
+        font-size: 18px;
+        padding: 5px;
+        margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul>
+            <li class="logo"><a href="index.html"><img src="images/logo.jpg" alt="로고입니다." ></a></li>
+            <li><a href="./personal.html">개인</a></li>
+            <li><a href="busines.html">기업</a></li>
+            <li><a href="login.html">로그인</a></li>
+            <li><a href="register.html">회원가입</a></li>
+        </ul> 
+    </nav>
+</header>
+  
+<div id="banner">지금 당신의 행복! IT's KOSTA Life!</div> 
+
+<main>
+    <h1>Register</h1>
+    
+    <form action="index.html" method="post" novalidate="novalidate">
+        <div class="form-item">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required="required" autofocus>
+        </div>
+   
+        <div class="form-item">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required >
+        </div>
+
+        <div class="form-item">
+            <label for="phone">연락처</label>
+            <input type="text" id="phone" name="phone">
+        </div>
+
+        <div class="form-item">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="form-item">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" id="password2" name="password2">
+        </div>
+        <hr>
+        <button type="button" id="registerBtn">회원 가입</button>
+    </form>
+</main>
+
+<footer>
+    <ul>
+        <li>경기도 성남시 오리역 한국소프트웨어진흥협회</li>
+        <li>02-0000-0000</li>
+    </ul>
+</footer>
+
+<script>
+    document.querySelector("#registerBtn").addEventListener("click", function() {
+        // 모든 입력 값 조회
+        let inputs = document.querySelectorAll("input");
+
+        // 모든 입력 값 출력
+        for (let input of inputs) { 
+            console.log(input.name + " : " + input.value);
+        } 
+
+        // 모든 입력 값 유무 체크
+        for (let input of inputs) {
+            if (input.value === "") {
+                alert("값을 입력해주세요.");
+                input.focus();
+                return;
+            }
+        }
+
+        // 이메일 형식 체크
+        let email = inputs[1];
+
+        if (email.value.indexOf("@") === -1) {
+            alert("이메일 형식이 아닙니다.");
+            email.focus();
+            return;
+        }
+
+        // 비밀번호 일치 체크
+        let password = inputs[3];
+        let password2 = inputs[4];
+
+        if (password.value !== password2.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            password.value = "";
+            password2.value = "";
+            password.focus();
+            return;
+        }
+
+        // 유효한 값이 모두 입력된 경우
+        document.querySelector("form").submit();
+
+        location.href = "index.html";
+    });
+</script>
+</body>
+</html>

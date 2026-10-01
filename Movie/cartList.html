@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+	<link  rel="stylesheet" type="text/css" href="css/basic.css"/>
+	<style type="text/css">
+		.poster {
+			width : 150px;
+			height : 150px;
+	
+		}
+		a {
+			text-decoration: none
+		}
+		#content td {
+			text-align: center;
+			vertical-align: middle;
+		}
+		#price {
+			font-weight: bold;
+		}
+	</style> 
+	<script type="text/javascript">
+		// 찜 목록 출력 함수
+		const showList = () => {
+			let total = 0;
+			let rows = "";
+
+			for (let i = 0; i < localStorage.length; i++) {
+				const key = localStorage.key(i);
+				const arr = localStorage.getItem(key).split(",");
+
+				total += Number(arr[2]);
+
+				rows += `
+					<tr>
+						<td><img class="poster" src="${arr[1]}" alt="${arr[0]}" /></td>
+						<td>${key}</td>
+						<td>${arr[0]}</td>
+						<td>${arr[2]}</td>
+						<td><button name="delItem" data-key="${key}">삭제</button></td>
+					</tr>`;
+			}
+
+			document.getElementById("content").innerHTML = rows;
+			document.getElementById("price").innerHTML = `주문가격 : ${total}원`;
+		};
+		
+		onload = () => {
+			showList();
+
+			// 찜 삭제
+			document.getElementById("content").addEventListener("click", (e) => {
+				if (e.target.name === "delItem") {
+					localStorage.removeItem(e.target.dataset.key);
+					showList();
+				}
+			});
+		};
+</script>
+</head>
+<body>
+	<article class="main">
+		<section>
+			<table width="80%"  align="center">
+				<caption class="caption">찜 리스트</caption>
+				<thead>
+					<tr><th>이미지</th><th>상품번호</th><th>상품이름</th><th>가격</th><th>삭제</th></tr>
+				</thead>
+				<tbody id="content">
+		   		<!-- 찜목록 출력 -->
+		    
+				</tbody>
+			</table>
+		</section>
+		<section  class="toalprice" id="price">
+			<!-- 가격 -->
+		</section>
+		<section class="link">
+			<table align="center">
+				<tr><td align="center">
+					<a href="">주문하러 가기</a> 
+					<a href="index.html">DVD LIST</a> 
+				</td></tr>
+			</table>
+		</section>
+	</article>
+</body>
+</html>
