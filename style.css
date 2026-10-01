@@ -250,6 +250,71 @@ img {
     pointer-events: none;
 }
 
+/* 히어로 배경: 움직이는 블롭 + 마우스 스포트라이트 */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .5;
+    will-change: transform;
+}
+
+.blob-1 {
+    width: 420px; height: 420px;
+    left: -80px; top: -60px;
+    background: #bfe0cd;
+    animation: blobFloat1 18s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+    width: 360px; height: 360px;
+    right: 6%; top: 20%;
+    background: #d9d6f2;
+    animation: blobFloat2 22s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+    width: 300px; height: 300px;
+    left: 38%; bottom: -100px;
+    background: #f3dfc4;
+    animation: blobFloat1 26s ease-in-out infinite alternate-reverse;
+}
+
+.spotlight {
+    position: absolute;
+    left: 0; top: 0;
+    width: 520px; height: 520px;
+    margin: -260px 0 0 -260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(61, 122, 90, .16), transparent 65%);
+    transform: translate3d(var(--mx, 50vw), var(--my, 40vh), 0);
+    transition: transform .25s linear, opacity .4s;
+    opacity: 0;
+}
+
+.hero.has-pointer .spotlight {
+    opacity: 1;
+}
+
+@keyframes blobFloat1 {
+    to { transform: translate3d(90px, 60px, 0) scale(1.15); }
+}
+
+@keyframes blobFloat2 {
+    to { transform: translate3d(-80px, 70px, 0) scale(.9); }
+}
+
+@keyframes cardFloat {
+    50% { transform: translateY(-8px); }
+}
+
 .hero-inner {
     position: relative;
     width: var(--width);
@@ -442,6 +507,7 @@ img {
 
 .hero-photo {
     display: block;
+    animation: cardFloat 6s ease-in-out infinite;
 
     width: 100%;
     aspect-ratio: 4 / 5;        /* 세로 증명사진 비율에 맞춰 사진 전체가 보이도록 */
@@ -999,6 +1065,53 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    /* 스크롤 패럴랙스(--py) + 호버 줌(--zoom) */
+    transform: translate3d(0, var(--py, 0px), 0) scale(var(--zoom, 1.06));
+    transition: transform .8s var(--ease);
+    will-change: transform;
+}
+
+.project-card:hover .project-image img {
+    --zoom: 1.1;
+}
+
+/* 호버 시 나타나는 원형 "View" 라벨 */
+.project-view {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    display: grid;
+    place-items: center;
+
+    width: 92px;
+    height: 92px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .92);
+    color: var(--ink);
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.6);
+    transition: opacity .3s, transform .45s var(--ease);
+    pointer-events: none;
+}
+
+.project-card:hover .project-view {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none) {
+    .project-view { display: none; }
 }
 
 .project-number {
@@ -1760,6 +1873,15 @@ img {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         transition-delay: 0ms !important;
+    }
+
+    .hero-photo,
+    .blob {
+        animation: none !important;
+    }
+
+    .project-image img {
+        transform: none;
     }
 
     .js [data-reveal],

@@ -219,6 +219,58 @@ if (card && canHover && !reduceMotion) {
 
 
 /* =========================
+   Hero 스포트라이트 (마우스를 따라다니는 은은한 빛)
+========================= */
+
+const hero = document.querySelector(".hero");
+
+if (hero && canHover && !reduceMotion) {
+    hero.addEventListener("mousemove", (e) => {
+        const rect = hero.getBoundingClientRect();
+        hero.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        hero.style.setProperty("--my", `${e.clientY - rect.top}px`);
+        hero.classList.add("has-pointer");
+    });
+
+    hero.addEventListener("mouseleave", () => hero.classList.remove("has-pointer"));
+}
+
+
+/* =========================
+   프로젝트 이미지 패럴랙스
+========================= */
+
+const parallaxImgs = document.querySelectorAll(".project-image img");
+let parallaxTicking = false;
+
+const updateParallax = () => {
+    const vh = window.innerHeight;
+
+    parallaxImgs.forEach((img) => {
+        const rect = img.parentElement.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) return;
+
+        // 화면 중앙에서 얼마나 벗어났는지 (-1 ~ 1) → 최대 ±16px 이동
+        const progress = (rect.top + rect.height / 2 - vh / 2) / (vh / 2 + rect.height / 2);
+        img.style.setProperty("--py", `${progress * -16}px`);
+    });
+
+    parallaxTicking = false;
+};
+
+if (!reduceMotion) {
+    window.addEventListener("scroll", () => {
+        if (parallaxTicking) return;
+        parallaxTicking = true;
+        requestAnimationFrame(updateParallax);
+    }, { passive: true });
+
+    window.addEventListener("resize", updateParallax);
+    updateParallax();
+}
+
+
+/* =========================
    숫자 카운트업
 ========================= */
 
