@@ -219,42 +219,6 @@ if (card && canHover && !reduceMotion) {
 
 
 /* =========================
-   숫자 카운트업
-========================= */
-
-const counters = document.querySelectorAll("[data-count]");
-
-const countUp = (el) => {
-    const target = Number(el.dataset.count);
-    const duration = 1400;
-    const start = performance.now();
-
-    const tick = (now) => {
-        const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3);          // 끝으로 갈수록 천천히
-        el.textContent = Math.round(target * eased);
-        if (t < 1) requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-};
-
-if (reduceMotion || !("IntersectionObserver" in window)) {
-    counters.forEach((el) => (el.textContent = el.dataset.count));
-} else {
-    const countObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            countUp(entry.target);
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.6 });
-
-    counters.forEach((el) => countObserver.observe(el));
-}
-
-
-/* =========================
    이메일 복사 + 토스트
 ========================= */
 

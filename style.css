@@ -342,33 +342,6 @@ img {
     opacity: 0;
 }
 
-.hero-stack {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin-top: 28px;
-}
-
-.hero-stack span {
-    padding: 7px 13px;
-
-    border: 1px solid var(--line);
-    border-radius: 30px;
-
-    background: white;
-
-    font-size: 13px;
-
-    transition: border-color .2s, transform .2s;
-}
-
-.hero-stack span:hover {
-    border-color: var(--ink);
-    transform: translateY(-2px);
-}
-
 .hero-buttons {
     display: flex;
     gap: 12px;
@@ -488,41 +461,6 @@ img {
 }
 
 /* 스크롤 안내 */
-.scroll-hint {
-    position: absolute;
-    left: 50%;
-    bottom: 32px;
-
-    width: 24px;
-    height: 40px;
-    margin-left: -12px;
-
-    border: 1.5px solid #bbb;
-    border-radius: 14px;
-}
-
-.scroll-hint span {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-
-    width: 3px;
-    height: 7px;
-    margin-left: -1.5px;
-
-    border-radius: 2px;
-    background: #999;
-
-    animation: scrollDot 1.8s var(--ease) infinite;
-}
-
-@keyframes scrollDot {
-    0%   { transform: translateY(0); opacity: 1; }
-    70%  { transform: translateY(12px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 0; }
-}
-
-
 /* =========================
    Hero 등장 애니메이션 (페이지 로드 시 1회)
 ========================= */
@@ -1254,13 +1192,6 @@ img {
     font-size: 13.5px;
     line-height: 1.6;
     color: var(--sub);
-}
-
-.practice-tags {
-    margin-top: 14px;
-
-    font-size: 12px;
-    color: var(--muted);
 }
 
 .practice-open {
