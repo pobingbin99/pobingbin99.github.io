@@ -80,7 +80,7 @@
 
       <a class="tile t-skills" href="#skills">
         <span class="tile-word">Skills</span>
-        <span class="tile-note">다룰 수 있는 기술 15개</span>
+        <span class="tile-note">다룰 수 있는 기술 목록</span>
         <span class="deco deco-ring" aria-hidden="true"></span>
       </a>
 
@@ -117,7 +117,7 @@
         <p>
           웹 서비스를 만들 때 기능 구현에 그치지 않고, 사용자의 입장에서 한 번 더 바라보는 것을 중요하게 생각합니다.<br>
           React와 Next.js 프론트엔드부터 Spring Boot 백엔드까지 직접 개발하며 경험을 쌓았습니다.<br>
-          새로운 기술을 직접 적용하고 문제를 해결하며 더 나은 서비스를 만들어가는 개발자로 성장하고 있습니다.
+          새로운 기술을 직접 적용하고 문제를 해결하며 더 나은 서비스를 만들어가는 개발자로 성장하고 있습니다.<br>
         </p>
       </div>
     </section>
@@ -125,7 +125,7 @@
     <!-- ============ PROJECTS ============ -->
     <div id="projects" class="work-head split">
       <h2 class="display">Projects</h2>
-      <p class="split-body work-intro">팀 프로젝트 네 개를 소개합니다. 각 프로젝트에서 맡은 영역과 직접 구현한 기능을 정리했어요.</p>
+      <p class="split-body work-intro">각 프로젝트에서 맡은 영역과 직접 구현한 기능을 정리했어요.</p>
     </div>
 
     <article class="project p-rabbit" id="rabbit-habit">
@@ -135,7 +135,8 @@
           <ul class="tags"><li>PWA</li><li>Habit Tracker</li><li>Team Project</li></ul>
           <p class="project-desc">
             팀 채팅과 실시간 알림으로 습관 형성을 돕는 개인·팀 습관 관리 서비스입니다.
-            픽셀 토끼의 상태와 성장 시스템으로 습관 실천에 재미와 동기를 더했습니다.
+            픽셀 토끼의 상태와 성장 시스템을 통해 습관 실천에 재미와 동기를 더하고,
+            개인 습관뿐만 아니라 팀원들과 함께 목표를 공유하고 실천할 수 있도록 구성했습니다.
           </p>
         </div>
         <img class="project-shot" src="images/rabbithabit.png" alt="Rabbit Habit 습관 등록, 메인, 상세 화면" loading="lazy" />
@@ -150,17 +151,19 @@
         <div>
           <h4>주요 구현</h4>
           <ul class="impl">
-            <li>NextAuth.js 기반 로그인 전반 구현 및 카카오 OAuth 연동</li>
-            <li>PixiJS(@pixi/react)로 토끼가 움직이는 픽셀 메인 화면 구현</li>
-            <li>Prisma ORM으로 PostgreSQL 연결 및 스키마 관리</li>
-            <li>Supabase Storage를 활용한 이미지 관리, Vercel 배포</li>
+            <li>NextAuth.js 기반 인증 흐름을 구현하고, 카카오 OAuth를 연동해 로그인 기능 구현</li>
+            <li>PixiJS를 활용해 토끼의 상태와 움직임을 표현하는 인터랙티브 픽셀 메인 화면 구현</li>
+            <li>Prisma ORM으로 PostgreSQL 데이터베이스를 연동하고, 스키마 및 데이터 관계를 관리</li>
+            <li>Supabase Storage를 활용해 프로필 이미지 등의 이미지 업로드 및 저장 기능 구현</li>
+            <li>Vercel을 활용해 Next.js 애플리케이션을 배포하고 운영 환경 구성</li>
           </ul>
         </div>
         <div>
           <h4>기술 스택</h4>
           <ul class="stack"><li>Next.js</li><li>TypeScript</li><li>NextAuth.js</li><li>Prisma</li><li>PostgreSQL</li><li>Supabase</li><li>PixiJS</li><li>Vercel</li></ul>
           <div class="code-links">
-            <a class="code-link" href="https://github.com/Rabbit-Habit/Next-Project" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+            <a class="code-link primary" href="https://github.com/Rabbit-Habit/Next-Project" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+            <a class="code-link " href="https://rabbit-habit-xi.vercel.app" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M1.5 8h13M8 1.5c2 2 2 11 0 13M8 1.5c-2 2-2 11 0 13" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>배포 사이트</a>
           </div>
         </div>
       </div>
@@ -173,7 +176,9 @@
           <ul class="tags"><li>Barcode</li><li>AI Shopping</li><li>Team Project</li></ul>
           <p class="project-desc">
             한국 편의점을 이용하는 외국인을 위한 바코드 기반 AI 쇼핑 지원 서비스입니다.
-            상품 정보와 리뷰를 사용자 언어로 보여주고, AI 리뷰 요약과 상품 추천을 제공합니다.
+            상품 바코드를 스캔하면 상품 정보와 리뷰를 다국어로 제공하며,
+            AI 리뷰 요약·상품 추천·챗봇 기능을 통해 상품 선택을 돕습니다.
+            주변 편의점 길 안내 기능까지 제공해 낯선 환경에서도 편리하게 이용할 수 있도록 구성했습니다.
           </p>
         </div>
         <img class="project-shot" src="images/peekpick.png" alt="Peek&amp;Pick 메인 화면과 상품 리뷰 화면" loading="lazy" />
@@ -188,18 +193,22 @@
         <div>
           <h4>주요 구현</h4>
           <ul class="impl">
-            <li>리뷰 작성·조회·수정·삭제 화면과 API 구현, 다중 이미지 업로드 및 썸네일 생성</li>
-            <li>useInfiniteQuery와 IntersectionObserver를 이용한 리뷰 무한 스크롤 구현</li>
-            <li>react-i18next로 한·영·일 3개 언어 지원, Spring AI를 활용한 다국어 기반 리뷰 번역</li>
-            <li>AWS 배포: 프론트 S3 + CloudFront, 백엔드 EC2 + Docker + Nginx</li>
+            <li>리뷰 작성·조회·수정·삭제 기능과 관련 화면 및 API 구현</li>
+            <li>다중 이미지 업로드와 썸네일 생성 기능을 구현해 리뷰 이미지 관리</li>
+            <li>useInfiniteQuery와 IntersectionObserver를 활용해 리뷰 무한 스크롤 구현</li>
+            <li>react-i18next를 활용한 한국어·영어·일본어 3개 언어 지원</li>
+            <li>Spring AI를 활용한 사용자 국적 기반 리뷰 번역 기능 구현</li>
+            <li>AWS 기반 배포 환경 구성: 프론트엔드 S3·CloudFront, 백엔드 EC2·Docker·Nginx</li>
           </ul>
         </div>
         <div>
           <h4>기술 스택</h4>
           <ul class="stack"><li>React</li><li>TypeScript</li><li>React Query</li><li>Spring Boot</li><li>Spring AI</li><li>JPA</li><li>QueryDSL</li><li>PostgreSQL</li><li>AWS</li><li>Docker</li></ul>
           <div class="code-links">
-            <a class="code-link" href="https://github.com/Peek-Pick/peek-pick-frontend" target="_blank" rel="noopener">GitHub (Frontend)</a>
-            <a class="code-link" href="https://github.com/Peek-Pick/peek-pick-backend" target="_blank" rel="noopener">GitHub (Backend)</a>
+            <a class="code-link primary" href="https://github.com/Peek-Pick/peek-pick-frontend" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub (Frontend)</a>
+            <a class="code-link primary" href="https://github.com/Peek-Pick/peek-pick-backend" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub (Backend)</a>
+            <a class="code-link " href="https://youtu.be/p_8_L8ORM1Y" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></svg>시연 영상 (사용자)</a>
+            <a class="code-link " href="https://youtu.be/jMc5VIBdmTU" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></svg>시연 영상 (관리자)</a>
           </div>
         </div>
       </div>
@@ -210,10 +219,10 @@
         <div class="project-intro">
           <h3 class="project-title">CarTalk</h3>
           <ul class="tags"><li>AI</li><li>RAG Chatbot</li><li>Capstone</li></ul>
-          <p class="project-desc">
-            중고차 지식이 부족한 사용자도 정보를 쉽게 얻을 수 있는 챗봇 서비스입니다.
-            사용자의 조건을 바탕으로 중고차 매물과 정보를 찾아 제공하는 RAG 서비스입니다.
-          </p>
+            <p class="project-desc">
+                중고차에 대한 지식이 부족한 사용자도 원하는 차량 정보를 쉽게 찾을 수 있도록 돕는 AI 챗봇 서비스입니다.
+                사용자의 조건을 바탕으로 중고차 매물과 관련 정보를 검색하고, RAG를 통해 필요한 정보를 답변으로 제공합니다.
+            </p>
         </div>
         <img class="project-shot" src="images/cartalk.png" alt="CarTalk 챗봇 대화 화면" loading="lazy" />
       </div>
@@ -227,16 +236,17 @@
         <div>
           <h4>주요 구현</h4>
           <ul class="impl">
-            <li>챗봇 웹페이지 UI 설계, React·TypeScript·Tailwind CSS로 화면 구현</li>
-            <li>중고차 관련 외부 데이터를 수집·정리해 RAG 지식 베이스 구축</li>
-            <li>LangChain으로 검색 결과와 LLM 답변 연결, RAG 파이프라인 구현</li>
+            <li>챗봇 웹페이지 UI 설계 및 React를 활용한 프론트엔드 구현</li>
+            <li>중고차 관련 외부 데이터를 수집하고 검색에 활용할 수 있도록 정리</li>
+            <li>중고차 매물 및 관련 정보를 기반으로 RAG 지식 베이스 구축</li>
+            <li>LangChain을 활용해 검색 결과와 LLM 답변을 연결하는 RAG 파이프라인 구현</li>
           </ul>
         </div>
         <div>
           <h4>기술 스택</h4>
           <ul class="stack"><li>React</li><li>TypeScript</li><li>Tailwind CSS</li><li>Python</li><li>LangChain</li><li>RAG</li></ul>
           <div class="code-links">
-            <a class="code-link" href="https://github.com/pnucse-capstone-2024/Capstone-2024-team-34" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+            <a class="code-link primary" href="https://github.com/pnucse-capstone-2024/Capstone-2024-team-34" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
           </div>
         </div>
       </div>
@@ -248,8 +258,8 @@
           <h3 class="project-title">Gotcha-Fish</h3>
           <ul class="tags"><li>Java</li><li>Console Game</li><li>Team Project</li></ul>
           <p class="project-desc">
-            물고기를 낚고 팔아 골드를 모으는 Java 기반 수집형 콘솔 게임입니다.
-            희귀한 물고기를 낚고, 다른 플레이어와 실시간 1:1 대결도 즐길 수 있습니다.
+            물고기를 낚고 판매하며 골드를 모으는 Java 기반 수집형 콘솔 게임입니다.
+            다양한 물고기를 수집하고, 다른 플레이어와 실시간 1:1 대결을 즐길 수 있도록 구현했습니다.
           </p>
         </div>
         <img class="project-shot" src="images/gotchafish.png" alt="Gotcha-Fish 픽셀 아트 타이틀 화면" loading="lazy" />
@@ -264,16 +274,17 @@
         <div>
           <h4>주요 구현</h4>
           <ul class="impl">
-            <li>회원가입·로그인·프로필 수정 등 회원 관련 기능 전반적인 구현</li>
-            <li>출석 보상 지급 기능과 낚시대 조회 및 구매 기능 구현, 트랜잭션 처리</li>
-            <li>Socket·Thread 기반 실시간 1:1 대결 구현, synchronized로 동시 입장을 제어</li>
+            <li>회원가입·로그인·프로필 수정 등 회원 관련 전반적인 기능 구현</li>
+            <li>출석 보상 지급 및 낚싯대 조회·구매 기능 구현, 트랜잭션 처리</li>
+            <li>Socket과 Thread를 활용한 실시간 1:1 대결 구현, synchronized를 활용한 동시 입장 제어</li>
           </ul>
         </div>
         <div>
           <h4>기술 스택</h4>
           <ul class="stack"><li>Java</li><li>MySQL</li><li>JDBC</li><li>AWS RDS</li><li>Socket</li><li>Thread</li></ul>
           <div class="code-links">
-            <a class="code-link" href="https://github.com/Gotcha-Fish/Gotcha-Fish" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+            <a class="code-link primary" href="https://github.com/Gotcha-Fish/Gotcha-Fish" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+            <a class="code-link " href="https://youtu.be/wG2bNKKPW5s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></svg>시연 영상</a>
           </div>
         </div>
       </div>
@@ -291,25 +302,25 @@
           <span class="mini-icon" aria-hidden="true">✅</span>
           <h4>Todo 게시판</h4>
           <p>할 일을 추가하고 완료 체크와 삭제를 할 수 있는 Todo 게시판</p>
-          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+          <a href="Todo_List/TodoList_UI.html" target="_blank" rel="noopener">실습 보기</a>
         </li>
         <li class="mini-card m-fruit">
           <span class="mini-icon" aria-hidden="true">🍓</span>
           <h4>과일 쇼핑몰</h4>
           <p>과일 목록을 정렬해 보고 상세 페이지로 이동하는 쇼핑몰</p>
-          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+          <a href="Fruits_Shop/index.html" target="_blank" rel="noopener">실습 보기</a>
         </li>
         <li class="mini-card m-login">
           <span class="mini-icon" aria-hidden="true">🔐</span>
           <h4>로그인·회원가입</h4>
           <p>로그인과 회원가입 화면에 입력값 유효성 검사를 구현한 실습</p>
-          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+          <a href="WS_03//index.html" target="_blank" rel="noopener">실습 보기</a>
         </li>
         <li class="mini-card m-movie">
           <span class="mini-icon" aria-hidden="true">🎬</span>
           <h4>영화 페이지</h4>
           <p>영화 미리보기 영상을 재생하고 찜하기를 할 수 있는 영화 페이지</p>
-          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+          <a href="Movie/index.html" target="_blank" rel="noopener">실습 보기</a>
         </li>
       </ul>
     </section>
