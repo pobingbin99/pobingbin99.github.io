@@ -1,497 +1,430 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이은진 | Web Developer Portfolio</title>
-    <meta name="description" content="웹 개발자 이은진의 포트폴리오입니다.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이은진 | Web Developer</title>
+  <meta name="description" content="화면부터 서버까지, 흐름을 보는 웹 개발자 이은진의 포트폴리오입니다." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐰</text></svg>" />
 
-    <!-- JS가 켜져 있을 때만 애니메이션 초기 상태(숨김)를 적용 -->
-    <script>
-        document.documentElement.classList.add("js");
-        // 인트로 커튼 와이프: 새로고침할 때마다 표시, '움직임 줄이기' 사용자는 제외
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            document.documentElement.classList.add("has-intro");
-        }
-    </script>
+  <!-- Fonts: Pretendard(한글) + Bricolage Grotesque(영문 제목) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" />
 
-    <!-- 한글 웹폰트: Pretendard -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="intro" aria-hidden="true">
-    <span class="intro-logo">
-        <span class="intro-name">EUNJIN<span class="intro-dot">.</span></span>
-        <span class="intro-portfolio">PORTFOLIO</span>
-    </span>
-</div>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
 
-<header class="header">
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <div class="header-inner">
-        <a href="#home" class="logo"> EUNJIN<span>.</span></a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="맨 위로">
+      <span class="brand-dot" aria-hidden="true"></span>
+      Eunjin Lee
+    </a>
+    <nav aria-label="주요 메뉴">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-        <nav class="nav" id="site-nav">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
-        </nav>
-
-        <button class="menu-btn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-nav">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</header>
-
-<main>
-<section id="home" class="hero">
-    <div class="hero-inner">
-        <div class="hero-card hero-fade" style="--d: 300ms">
-            <img class="hero-photo" src="assets/images/profile.jpg" alt="이은진 프로필 사진">
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          안녕하세요,
+          <span class="nowrap"><span class="crystal">
+            <span class="crystal-text" data-text="이은진">이은진</span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span></span>입니다.</span>
+        </h1>
+        <p class="hero-lead">
+          <span class="sr-only">사용자에게 편리한 서비스를 고민하고, 설계하고, 개선하고 직접 구현하는 웹 개발자입니다.</span>
+          <span aria-hidden="true">사용자에게 편리한 서비스를
+            <span class="rotator"><span class="rotator-word" id="rotatorWord">고민하고</span></span><br />
+            직접 구현하는 웹 개발자입니다.</span>
+        </p>
+        <div class="hero-links">
+          <a class="btn btn-ink" href="https://github.com/pobingbin99" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-line" href="mailto:leedmswls@gmail.com">메일 보내기</a>
         </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="images/profile.jpg" alt="이은진 프로필 사진" />
+        <figcaption class="hello" aria-hidden="true">Hi!</figcaption>
+      </figure>
+    </section>
 
-        <div class="hero-main">
-            <p class="eyebrow hero-fade" style="--d: 0ms">WEB DEVELOPER</p>
+    <!-- ============ MOSAIC (Dropbox brand-style 메뉴 타일) ============ -->
+    <nav class="mosaic" aria-label="섹션 바로가기">
+      <a class="tile t-projects" href="#projects">
+        <span class="thumbs" aria-hidden="true">
+          <img src="images/rabbithabit.png" alt="" />
+          <img src="images/peekpick.png" alt="" />
+          <img src="images/cartalk.png" alt="" />
+          <img src="images/gotchafish.png" alt="" />
+        </span>
+        <span class="tile-word">Projects</span>
+        <span class="tile-note">Rabbit Habit, Peek&amp;Pick, CarTalk, Gotcha-Fish</span>
+      </a>
 
-            <h1>
-                <span class="mask-line" style="--d: 100ms"><span class="glow-text" data-text="안녕하세요,">안녕하세요,</span> <em class="glow-text" data-text="이은진">이은진<i class="sparkle s1" aria-hidden="true"></i><i class="sparkle s2" aria-hidden="true"></i><i class="sparkle s3" aria-hidden="true"></i><i class="sparkle s4" aria-hidden="true"></i><i class="sparkle s5" aria-hidden="true"></i></em><span class="glow-text" data-text="입니다.">입니다.</span></span>
-            </h1>
+      <a class="tile t-about" href="#about">
+        <span class="tile-word">About me</span>
+        <span class="tile-note">어떤 개발자인지</span>
+        <span class="deco deco-face" aria-hidden="true"><i></i><i></i></span>
+      </a>
 
-            <p class="hero-lead">
-                <span class="mask-line" style="--d: 300ms">사용자에게 편리한 서비스를 <span class="rotator" aria-live="polite">
-                    <span class="rotator-word is-active">고민하고</span>
-                    <span class="rotator-word">설계하고</span>
-                    <span class="rotator-word">개선하고</span>
-                </span></span>
-                <span class="mask-line" style="--d: 440ms">직접 구현하는 웹 개발자입니다.</span>
-            </p>
+      <a class="tile t-skills" href="#skills">
+        <span class="tile-word">Skills</span>
+        <span class="tile-note">다룰 수 있는 기술 15개</span>
+        <span class="deco deco-ring" aria-hidden="true"></span>
+      </a>
 
-            <div class="hero-about" id="about">
-                <h2 class="hero-fade" style="--d: 700ms">화면부터 서버까지, 흐름을 보는 개발자</h2>
+      <a class="tile t-exp" href="#experience">
+        <span class="tile-word">Experience</span>
+        <span class="tile-note">교육과 활동 기록</span>
+        <span class="deco deco-stairs" aria-hidden="true"><i></i><i></i><i></i></span>
+      </a>
 
-                <p class="hero-fade" style="--d: 780ms">
-                    웹 서비스를 만들 때 기능 구현에 그치지 않고, 사용자의 입장에서 한 번 더 바라보는 것을 중요하게 생각합니다.<br>
-                    React와 Next.js 프론트엔드부터 Spring Boot 백엔드까지 직접 개발하며 경험을 쌓았습니다.<br>
-                    새로운 기술을 직접 적용하고 문제를 해결하며 더 나은 서비스를 만들어가는 개발자로 성장하고 있습니다.
-                </p>
+      <a class="tile t-edu" href="#education">
+        <span class="tile-word">Education</span>
+        <span class="tile-note">학력, 자격증, 어학</span>
+        <span class="deco deco-cap" aria-hidden="true"><i></i></span>
+      </a>
 
-                <div class="hero-buttons hero-fade" style="--d: 860ms">
-                    <a href="#projects" class="btn primary">
-                        프로젝트 보기
-                        <span class="btn-arrow" aria-hidden="true">↓</span>
-                    </a>
+      <a class="tile t-values" href="#values">
+        <span class="tile-word">Values</span>
+        <span class="tile-note">일할 때 지키는 세 가지</span>
+        <span class="deco deco-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      </a>
 
-                    <a href="#contact" class="btn secondary">
-                        연락하기
-                    </a>
-                </div>
-            </div>
+      <a class="tile t-contact" href="#contact">
+        <span class="tile-word">Contact</span>
+        <span class="tile-note">leedmswls@gmail.com</span>
+        <span class="deco deco-blob" aria-hidden="true"></span>
+      </a>
+    </nav>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about split" id="about">
+      <h2 class="display">About me</h2>
+      <div class="split-body">
+        <p class="about-big">화면부터 서버까지,<br />흐름을 보는 개발자</p>
+        <p>
+          웹 서비스를 만들 때 기능 구현에 그치지 않고, 사용자의 입장에서 한 번 더 바라보는 것을 중요하게 생각합니다.<br>
+          React와 Next.js 프론트엔드부터 Spring Boot 백엔드까지 직접 개발하며 경험을 쌓았습니다.<br>
+          새로운 기술을 직접 적용하고 문제를 해결하며 더 나은 서비스를 만들어가는 개발자로 성장하고 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <div id="projects" class="work-head split">
+      <h2 class="display">Projects</h2>
+      <p class="split-body work-intro">팀 프로젝트 네 개를 소개합니다. 각 프로젝트에서 맡은 영역과 직접 구현한 기능을 정리했어요.</p>
+    </div>
+
+    <article class="project p-rabbit" id="rabbit-habit">
+      <div class="project-top">
+        <div class="project-intro">
+          <h3 class="project-title">Rabbit Habit</h3>
+          <ul class="tags"><li>PWA</li><li>Habit Tracker</li><li>Team Project</li></ul>
+          <p class="project-desc">
+            팀 채팅과 실시간 알림으로 습관 형성을 돕는 개인·팀 습관 관리 서비스입니다.
+            픽셀 토끼의 상태와 성장 시스템으로 습관 실천에 재미와 동기를 더했습니다.
+          </p>
         </div>
-    </div>
-</section>
-
-<div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-        <span>React</span><i>✦</i>
-        <span>Next.js</span><i>✦</i>
-        <span>TypeScript</span><i>✦</i>
-        <span>Spring Boot</span><i>✦</i>
-        <span>JPA</span><i>✦</i>
-        <span>PostgreSQL</span><i>✦</i>
-        <span>Supabase</span><i>✦</i>
-        <span>Docker</span><i>✦</i>
-    </div>
-</div>
-
-<section id="skills" class="section gray-section">
-    <div class="section-title" data-reveal>
-        <p>01</p>
-        <h2>Tech Stack</h2>
-    </div>
-
-    <p class="stack-hint" data-reveal>기술을 누르면 어떻게 사용해 봤는지 볼 수 있어요.</p>
-
-    <div class="stack" id="stack" data-stagger></div>
-</section>
-
-<dialog class="stack-dialog" id="stack-dialog">
-    <button type="button" class="sd-close" aria-label="닫기">×</button>
-    <div class="sd-head">
-        <span class="sd-icon"></span>
+        <img class="project-shot" src="images/rabbithabit.png" alt="Rabbit Habit 습관 등록, 메인, 상세 화면" loading="lazy" />
+      </div>
+      <div class="project-grid">
         <div>
-            <p class="sd-name"></p>
+          <h4>역할</h4>
+          <p class="role">Full-Stack</p>
+          <h4>담당 영역</h4>
+          <p>로그인, 메인 화면, DB 연동, 배포</p>
         </div>
+        <div>
+          <h4>주요 구현</h4>
+          <ul class="impl">
+            <li>NextAuth.js 기반 로그인 전반 구현 및 카카오 OAuth 연동</li>
+            <li>PixiJS(@pixi/react)로 토끼가 움직이는 픽셀 메인 화면 구현</li>
+            <li>Prisma ORM으로 PostgreSQL 연결 및 스키마 관리</li>
+            <li>Supabase Storage를 활용한 이미지 관리, Vercel 배포</li>
+          </ul>
+        </div>
+        <div>
+          <h4>기술 스택</h4>
+          <ul class="stack"><li>Next.js</li><li>TypeScript</li><li>NextAuth.js</li><li>Prisma</li><li>PostgreSQL</li><li>Supabase</li><li>PixiJS</li><li>Vercel</li></ul>
+          <div class="code-links">
+            <a class="code-link" href="https://github.com/Rabbit-Habit/Next-Project" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="project p-peek" id="peek-pick">
+      <div class="project-top">
+        <div class="project-intro">
+          <h3 class="project-title">Peek&amp;Pick</h3>
+          <ul class="tags"><li>Barcode</li><li>AI Shopping</li><li>Team Project</li></ul>
+          <p class="project-desc">
+            한국 편의점을 이용하는 외국인을 위한 바코드 기반 AI 쇼핑 지원 서비스입니다.
+            상품 정보와 리뷰를 사용자 언어로 보여주고, AI 리뷰 요약과 상품 추천을 제공합니다.
+          </p>
+        </div>
+        <img class="project-shot" src="images/peekpick.png" alt="Peek&amp;Pick 메인 화면과 상품 리뷰 화면" loading="lazy" />
+      </div>
+      <div class="project-grid">
+        <div>
+          <h4>역할</h4>
+          <p class="role">Full-Stack</p>
+          <h4>담당 영역</h4>
+          <p>리뷰, 다국어, 메인 화면, 배포</p>
+        </div>
+        <div>
+          <h4>주요 구현</h4>
+          <ul class="impl">
+            <li>리뷰 작성·조회·수정·삭제 화면과 API 구현, 다중 이미지 업로드 및 썸네일 생성</li>
+            <li>useInfiniteQuery와 IntersectionObserver를 이용한 리뷰 무한 스크롤 구현</li>
+            <li>react-i18next로 한·영·일 3개 언어 지원, Spring AI를 활용한 다국어 기반 리뷰 번역</li>
+            <li>AWS 배포: 프론트 S3 + CloudFront, 백엔드 EC2 + Docker + Nginx</li>
+          </ul>
+        </div>
+        <div>
+          <h4>기술 스택</h4>
+          <ul class="stack"><li>React</li><li>TypeScript</li><li>React Query</li><li>Spring Boot</li><li>Spring AI</li><li>JPA</li><li>QueryDSL</li><li>PostgreSQL</li><li>AWS</li><li>Docker</li></ul>
+          <div class="code-links">
+            <a class="code-link" href="https://github.com/Peek-Pick/peek-pick-frontend" target="_blank" rel="noopener">GitHub (Frontend)</a>
+            <a class="code-link" href="https://github.com/Peek-Pick/peek-pick-backend" target="_blank" rel="noopener">GitHub (Backend)</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="project p-car" id="cartalk">
+      <div class="project-top">
+        <div class="project-intro">
+          <h3 class="project-title">CarTalk</h3>
+          <ul class="tags"><li>AI</li><li>RAG Chatbot</li><li>Capstone</li></ul>
+          <p class="project-desc">
+            중고차 지식이 부족한 사용자도 정보를 쉽게 얻을 수 있는 챗봇 서비스입니다.
+            사용자의 조건을 바탕으로 중고차 매물과 정보를 찾아 제공하는 RAG 서비스입니다.
+          </p>
+        </div>
+        <img class="project-shot" src="images/cartalk.png" alt="CarTalk 챗봇 대화 화면" loading="lazy" />
+      </div>
+      <div class="project-grid">
+        <div>
+          <h4>역할</h4>
+          <p class="role">Frontend, RAG 설계</p>
+          <h4>담당 영역</h4>
+          <p>UI 설계, 데이터 수집, RAG 파이프라인</p>
+        </div>
+        <div>
+          <h4>주요 구현</h4>
+          <ul class="impl">
+            <li>챗봇 웹페이지 UI 설계, React·TypeScript·Tailwind CSS로 화면 구현</li>
+            <li>중고차 관련 외부 데이터를 수집·정리해 RAG 지식 베이스 구축</li>
+            <li>LangChain으로 검색 결과와 LLM 답변 연결, RAG 파이프라인 구현</li>
+          </ul>
+        </div>
+        <div>
+          <h4>기술 스택</h4>
+          <ul class="stack"><li>React</li><li>TypeScript</li><li>Tailwind CSS</li><li>Python</li><li>LangChain</li><li>RAG</li></ul>
+          <div class="code-links">
+            <a class="code-link" href="https://github.com/pnucse-capstone-2024/Capstone-2024-team-34" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="project p-fish" id="gotcha-fish">
+      <div class="project-top">
+        <div class="project-intro">
+          <h3 class="project-title">Gotcha-Fish</h3>
+          <ul class="tags"><li>Java</li><li>Console Game</li><li>Team Project</li></ul>
+          <p class="project-desc">
+            물고기를 낚고 팔아 골드를 모으는 Java 기반 수집형 콘솔 게임입니다.
+            희귀한 물고기를 낚고, 다른 플레이어와 실시간 1:1 대결도 즐길 수 있습니다.
+          </p>
+        </div>
+        <img class="project-shot" src="images/gotchafish.png" alt="Gotcha-Fish 픽셀 아트 타이틀 화면" loading="lazy" />
+      </div>
+      <div class="project-grid">
+        <div>
+          <h4>역할</h4>
+          <p class="role">Back-end</p>
+          <h4>담당 영역</h4>
+          <p>회원, 낚싯대 상점, 랭킹, 1:1 대결</p>
+        </div>
+        <div>
+          <h4>주요 구현</h4>
+          <ul class="impl">
+            <li>회원가입·로그인·프로필 수정 등 회원 관련 기능 전반적인 구현</li>
+            <li>출석 보상 지급 기능과 낚시대 조회 및 구매 기능 구현, 트랜잭션 처리</li>
+            <li>Socket·Thread 기반 실시간 1:1 대결 구현, synchronized로 동시 입장을 제어</li>
+          </ul>
+        </div>
+        <div>
+          <h4>기술 스택</h4>
+          <ul class="stack"><li>Java</li><li>MySQL</li><li>JDBC</li><li>AWS RDS</li><li>Socket</li><li>Thread</li></ul>
+          <div class="code-links">
+            <a class="code-link" href="https://github.com/Gotcha-Fish/Gotcha-Fish" target="_blank" rel="noopener">GitHub에서 코드 보기</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ MINI PROJECTS (KOSTA 프론트엔드 실습) ============
+         href="#" 부분을 실제 주소로 바꿔주세요. -->
+    <section class="mini" aria-labelledby="mini-title">
+      <div class="mini-head">
+        <h3 id="mini-title">Mini projects</h3>
+        <p>KOSTA 과정에서 진행한 프론트엔드 실습이에요.</p>
+      </div>
+      <ul class="mini-grid">
+        <li class="mini-card m-todo">
+          <span class="mini-icon" aria-hidden="true">✅</span>
+          <h4>Todo 게시판</h4>
+          <p>할 일을 추가하고 완료 체크와 삭제를 할 수 있는 Todo 게시판</p>
+          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+        </li>
+        <li class="mini-card m-fruit">
+          <span class="mini-icon" aria-hidden="true">🍓</span>
+          <h4>과일 쇼핑몰</h4>
+          <p>과일 목록을 정렬해 보고 상세 페이지로 이동하는 쇼핑몰</p>
+          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+        </li>
+        <li class="mini-card m-login">
+          <span class="mini-icon" aria-hidden="true">🔐</span>
+          <h4>로그인·회원가입</h4>
+          <p>로그인과 회원가입 화면에 입력값 유효성 검사를 구현한 실습</p>
+          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+        </li>
+        <li class="mini-card m-movie">
+          <span class="mini-icon" aria-hidden="true">🎬</span>
+          <h4>영화 페이지</h4>
+          <p>영화 미리보기 영상을 재생하고 찜하기를 할 수 있는 영화 페이지</p>
+          <a href="#" target="_blank" rel="noopener">실습 보기</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills split" id="skills">
+      <div>
+        <h2 class="display">Skills</h2>
+        <p class="skills-hint">기술을 누르면 자세히 볼 수 있어요.</p>
+      </div>
+      <div class="split-body">
+        <div class="skill-groups" id="skillGroups"><!-- script.js에서 채움 --></div>
+        <div class="skill-detail" id="skillDetail" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ VALUES ============ -->
+    <section class="values" id="values" aria-labelledby="values-title">
+      <h2 class="display" id="values-title">Values</h2>
+      <div class="value-row">
+        <div class="value v-pink">
+          <h3>사용자 중심</h3>
+          <p>기능을 만드는 데 그치지 않고 사용자 입장에서 한 번 더 봅니다.</p>
+        </div>
+        <div class="value v-mint">
+          <h3>문제 해결</h3>
+          <p>오류가 생기면 원인을 끝까지 찾고 해결 과정을 꼼꼼히 기록합니다.</p>
+        </div>
+        <div class="value v-butter">
+          <h3>꾸준한 학습</h3>
+          <p>새로운 기술을 직접 적용해 보며 개발 역량을 꾸준히 넓혀갑니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE (더미 데이터: 실제 내용으로 바꿔주세요) ============ -->
+    <section class="experience split" id="experience">
+      <h2 class="display">Experience</h2>
+      <ol class="timeline split-body">
+        <li>
+          <p class="when">2026.06 – 현재</p>
+          <div>
+            <h3>KOSTA</h3>
+            <p class="what">풀스택 개발자 양성 과정</p>
+            <p>Java, JDBC, 소켓 프로그래밍을 학습하고 팀 프로젝트 Gotcha-Fish에서 백엔드를 맡았습니다.</p>
+          </div>
+        </li>
+        <li>
+          <p class="when">2025.03 – 2025.08</p>
+          <div>
+            <h3>신세계 I&amp;C</h3>
+            <p class="what">웹 개발 부트캠프</p>
+            <p>Spring Boot와 React를 학습하고 팀 프로젝트 Peek&amp;Pick을 기획부터 배포까지 진행했습니다.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+    <!-- ============ EDUCATION (자격증·어학은 더미 데이터: 실제 내용으로 바꿔주세요) ============ -->
+    <section class="education split" id="education">
+      <h2 class="display">Education</h2>
+      <div class="split-body edu-grid">
+        <div class="edu-card c-school">
+          <h3>학력</h3>
+          <ul>
+            <li>
+              <p class="edu-name">부산대학교</p>
+              <p>물리학 주전공, 정보컴퓨터공학 복수전공</p>
+              <p class="edu-when">2019.03 – 2025.02 졸업</p>
+            </li>
+          </ul>
+        </div>
+        <div class="edu-card c-cert">
+          <h3>자격증</h3>
+          <ul>
+            <li>
+              <p class="edu-name">정보처리기사</p>
+              <p>한국산업인력공단</p>
+              <p class="edu-when">2025.06 취득</p>
+            </li>
+            <li>
+              <p class="edu-name">SQLD</p>
+              <p>한국데이터산업진흥원</p>
+              <p class="edu-when">2025.09 취득</p>
+            </li>
+          </ul>
+        </div>
+        <div class="edu-card c-lang">
+          <h3>어학</h3>
+          <ul>
+            <li>
+              <p class="edu-name">TOEIC 850</p>
+              <p>ETS</p>
+              <p class="edu-when">2025.04 취득</p>
+            </li>
+            <li>
+              <p class="edu-name">OPIc IM2</p>
+              <p>ACTFL</p>
+              <p class="edu-when">2025.05 취득</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ CONTACT ============ -->
+  <footer class="contact" id="contact">
+    <h2 class="contact-title">같이 만들어요</h2>
+    <a class="contact-mail" href="mailto:leedmswls@gmail.com">leedmswls@gmail.com</a>
+    <div class="contact-row">
+      <a href="https://github.com/pobingbin99" target="_blank" rel="noopener">github.com/pobingbin99</a>
+      <span>© <span id="year">2026</span> 이은진</span>
     </div>
-    <p class="sd-desc"></p>
-    <div class="sd-projects"></div>
-</dialog>
+  </footer>
 
-<section id="projects" class="section">
-    <div class="section-title" data-reveal>
-        <p>02</p>
-        <h2>Projects</h2>
-    </div>
-
-    <div class="projects">
-        <!-- Project 01 -->
-        <article class="project-card">
-            <div class="project-image" data-reveal="clip">
-                <img src="assets/images/rabbithabit.png" alt="Rabbit Habit 서비스 화면" loading="lazy">
-            </div>
-
-            <div class="project-content" data-stagger>
-                <div class="project-number">01</div>
-
-                <p class="project-category">PWA · HABIT TRACKER · TEAM PROJECT</p>
-
-                <h3>Rabbit Habit</h3>
-
-                <p class="project-description">
-                    팀 채팅과 실시간 알림을 통해 습관 형성을 돕는 개인·팀 습관 관리 서비스입니다.<br>
-                    픽셀 토끼의 상태와 성장 시스템을 통해 습관 실천에 대한 재미와 동기를 제공합니다.
-                </p>
-
-                <div class="project-info">
-                    <div>
-                        <strong>ROLE</strong>
-                        <span>Full-Stack · 로그인, 메인 화면, DB 연동, 배포</span>
-                    </div>
-                </div>
-
-                <div class="project-work">
-                    <p class="project-work-label">WHAT I DID</p>
-                    <ul class="project-highlights">
-                        <li>NextAuth.js 기반 로그인 전반 구현 (카카오 OAuth 연동)</li>
-                        <li>PixiJS(@pixi/react)로 토끼가 움직이는 픽셀 메인 화면 구현</li>
-                        <li>Prisma ORM으로 PostgreSQL 연결 및 스키마 관리</li>
-                        <li>Supabase Storage를 이용한 이미지 관리, Vercel 배포</li>
-                    </ul>
-                </div>
-
-                <div class="project-tags">
-                    <span>Next.js</span>
-                    <span>TypeScript</span>
-                    <span>NextAuth.js</span>
-                    <span>Prisma</span>
-                    <span>Supabase</span>
-                    <span>PixiJS</span>
-                    <span>Vercel</span>
-                </div>
-
-                <div class="project-links">
-                    <a href="https://github.com/Rabbit-Habit/Next-Project" class="text-link" target="_blank" rel="noopener">GitHub <span>→</span></a>
-                    <a href="https://rabbit-habit-xi.vercel.app" class="text-link" target="_blank" rel="noopener">Live <span>→</span></a>
-                </div>
-            </div>
-
-        </article>
-
-        <!-- Project 02 -->
-        <article class="project-card reverse">
-            <div class="project-image" data-reveal="clip">
-                <img src="assets/images/peekpick.png" alt="Peek&amp;Pick 서비스 화면" loading="lazy">
-            </div>
-
-            <div class="project-content" data-stagger>
-                <div class="project-number">02</div>
-
-                <p class="project-category">BARCODE · AI SHOPPING · TEAM PROJECT</p>
-
-                <h3>Peek&amp;Pick</h3>
-
-                <p class="project-description">
-                    한국 편의점을 이용하는 외국인을 위한 바코드 기반 AI 쇼핑 지원 서비스입니다.<br>
-                    상품 정보와 리뷰를 사용자 언어로 보여주고, AI 리뷰 요약과 상품 추천을 제공합니다.
-                </p>
-
-                <div class="project-info">
-                    <div>
-                        <strong>ROLE</strong>
-                        <span>Full-Stack · 리뷰, 다국어, 메인 화면, 배포</span>
-                    </div>
-                </div>
-
-                <div class="project-work">
-                    <p class="project-work-label">WHAT I DID</p>
-                    <ul class="project-highlights">
-                        <li>리뷰 작성·조회·수정·삭제 화면과 API 구현, 다중 이미지 업로드 및 썸네일 생성</li>
-                        <li>useInfiniteQuery와 IntersectionObserver로 리뷰 무한 스크롤 구현</li>
-                        <li>react-i18next로 한·영·일 3개 언어 지원, Spring AI로 사용자 국적 기반 리뷰 번역</li>
-                        <li>AWS 배포 · S3 + CloudFront, EC2(Docker · Nginx)</li>
-                    </ul>
-                </div>
-
-                <div class="project-tags">
-                    <span>React</span>
-                    <span>TypeScript</span>
-                    <span>React Query</span>
-                    <span>Spring Boot</span>
-                    <span>Spring AI</span>
-                    <span>AWS</span>
-                    <span>Docker</span>
-                </div>
-
-                <div class="project-links">
-                    <a href="https://github.com/Peek-Pick/peek-pick-frontend/tree/master" class="text-link" target="_blank" rel="noopener">Frontend <span>→</span></a>
-                    <a href="https://github.com/Peek-Pick/peek-pick-backend" class="text-link" target="_blank" rel="noopener">Backend <span>→</span></a>
-                    <a href="https://www.youtube.com/watch?v=p_8_L8ORM1Y" class="text-link" target="_blank" rel="noopener">Demo Video <span>→</span></a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Project 03 -->
-        <article class="project-card">
-            <div class="project-image" data-reveal="clip">
-                <img src="assets/images/cartalk.png" alt="CarTalk 챗봇 화면" loading="lazy">
-            </div>
-
-            <div class="project-content" data-stagger>
-                <div class="project-number">03</div>
-
-                <p class="project-category">AI · RAG CHATBOT · CAPSTONE</p>
-
-                <h3>CarTalk</h3>
-
-                <p class="project-description">
-                    중고차 지식이 부족한 사용자도 정보를 쉽게 얻을 수 있는 챗봇 서비스입니다.<br>
-                    사용자의 조건을 바탕으로 중고차 매물과 정보를 찾아 제공하는 RAG 서비스입니다.
-                </p>
-
-                <div class="project-info">
-                    <div>
-                        <strong>ROLE</strong>
-                        <span>Frontend · RAG 설계, 데이터 수집, UI 설계</span>
-                    </div> 
-                </div>
-
-                <div class="project-work">
-                    <p class="project-work-label">WHAT I DID</p>
-                    <ul class="project-highlights">
-                        <li>챗봇 웹페이지 UI 설계, React·TypeScript·Tailwind CSS로 화면 구현</li>
-                        <li>중고차 관련 외부 데이터를 수집·정리해 RAG 지식 베이스 구축</li>
-                        <li>LangChain으로 검색 결과를 LLM 답변에 연결하는 RAG 파이프라인 구현</li>
-                    </ul>
-                </div>
-
-                <div class="project-tags">
-                    <span>React</span>
-                    <span>TypeScript</span>
-                    <span>Tailwind CSS</span>
-                    <span>Python</span>
-                    <span>LangChain</span>
-                    <span>RAG</span>
-                </div>
-
-                <div class="project-links">
-                    <a href="https://github.com/pnucse-capstone-2024/Capstone-2024-team-34" class="text-link" target="_blank" rel="noopener">GitHub <span>→</span></a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Project 04 -->
-        <article class="project-card reverse">
-            <div class="project-image" data-reveal="clip">
-                <img src="assets/images/gotchafish.png" alt="Gotcha-Fish 게임 타이틀 화면" loading="lazy">
-            </div>
-
-            <div class="project-content" data-stagger>
-                <div class="project-number">04</div>
-
-                <p class="project-category">JAVA · CONSOLE GAME · TEAM PROJECT</p>
-
-                <h3>Gotcha-Fish</h3>
-
-                <p class="project-description">
-                    물고기를 낚고 팔아 골드를 모으는 Java 기반 수집형 콘솔 게임입니다.<br>
-                    낚싯대로 희귀한 물고기를 낚고, 다른 플레이어와 실시간 1:1 대결도 즐길 수 있습니다.
-                </p>
-
-                <div class="project-info">
-                    <div>
-                        <strong>ROLE</strong>
-                        <span>Back-end · 회원, 낚시대 상점, 랭킹, 1:1 대결</span>
-                    </div>
-                </div>
-
-                <div class="project-work">
-                    <p class="project-work-label">WHAT I DID</p>
-                    <ul class="project-highlights">
-                        <li>회원가입·로그인·프로필 수정 등 회원 관련 기능 전반적인 구현</li>
-                        <li>출석 보상 지급 기능과 낚시대 조회 및 구매 기능은 트랜잭션으로 처리</li>
-                        <li>Socket·Thread 기반 실시간 1:1 대결 구현, synchronized로 동시 입장을 제어</li>
-                    </ul>
-                </div>
-
-                <div class="project-tags">
-                    <span>Java</span>
-                    <span>MySQL</span>
-                    <span>JDBC</span>
-                    <span>AWS RDS</span>
-                    <span>Socket</span>
-                    <span>Thread</span>
-                </div>
-
-                <div class="project-links">
-                    <a href="https://github.com/Gotcha-Fish/Gotcha-Fish" class="text-link" target="_blank" rel="noopener">GitHub <span>→</span></a>
-                    <a href="https://youtu.be/wG2bNKKPW5s" class="text-link" target="_blank" rel="noopener">시연 영상 <span>→</span></a>
-                </div>
-            </div>
-        </article>
-    </div>
-    <div class="practice">
-        <div class="practice-head" data-reveal>
-            <h3>KOSTA Projects</h3>
-            <p>KOSTA 과정에서 진행한 프론트엔드 실습이에요.</p>
-        </div>
-        <div class="practice-grid" data-stagger>
-            <a href="Todo_List/TodoList_UI.html" class="practice-card" target="_blank" rel="noopener">
-                <span class="practice-num">01</span>
-                <h4>Todo List</h4>
-                <p>할 일을 추가하고 완료 체크와 삭제를 할 수 있는 Todo 게시판</p>
-                <span class="practice-open">열어 보기 <span>→</span></span>
-            </a>
-
-            <a href="Fruits_Shop/index.html" class="practice-card" target="_blank" rel="noopener">
-                <span class="practice-num">02</span>
-                <h4>Fruits Shop</h4>
-                <p>과일 목록을 정렬해 보고 상세 페이지로 이동하는 쇼핑몰</p>
-                <span class="practice-open">열어 보기 <span>→</span></span>
-            </a>
-
-            <a href="WS_03/index.html" class="practice-card" target="_blank" rel="noopener">
-                <span class="practice-num">03</span>
-                <h4>Login &amp; Join</h4>
-                <p>로그인과 회원가입 화면에 입력값 유효성 검사를 구현한 실습</p>
-                <span class="practice-open">열어 보기 <span>→</span></span>
-            </a>
-
-            <a href="Movie/index.html" class="practice-card" target="_blank" rel="noopener">
-                <span class="practice-num">04</span>
-                <h4>Movie</h4>
-                <p>영화 미리보기 영상을 재생하고 찜하기를 할 수 있는 영화 페이지</p>
-                <span class="practice-open">열어 보기 <span>→</span></span>
-            </a>
-        </div>
-    </div>
-</section>
-
-
-<section id="experience" class="section gray-section">
-    <div class="section-title" data-reveal>
-        <p>03</p>
-        <h2>Experience</h2>
-    </div>
-
-    <div class="timeline">
-        <div class="timeline-item" data-reveal>
-            <div class="timeline-date">YYYY</div>
-            <div class="timeline-content">
-                <h3>기관 또는 과정 이름이 들어갑니다</h3>
-                <p>
-                    이곳에 배운 내용이나 진행한 프로젝트가 들어갑니다.
-                    두 줄 정도로 간단하게 적어 주세요.
-                </p>
-            </div>
-        </div>
-
-        <div class="timeline-item" data-reveal>
-            <div class="timeline-date">YYYY</div>
-            <div class="timeline-content">
-                <h3>기관 또는 과정 이름이 들어갑니다</h3>
-                <p>
-                    이곳에 배운 내용이나 진행한 프로젝트가 들어갑니다.
-                    두 줄 정도로 간단하게 적어 주세요.
-                </p>
-            </div>
-        </div>
-
-        <div class="timeline-item" data-reveal>
-            <div class="timeline-date">YYYY</div>
-            <div class="timeline-content">
-                <h3>기관 또는 과정 이름이 들어갑니다</h3>
-                <p>
-                    이곳에 배운 내용이나 진행한 프로젝트가 들어갑니다.
-                    두 줄 정도로 간단하게 적어 주세요.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="section-title" data-reveal>
-        <p>04</p>
-        <h2>What I Value</h2>
-    </div>
-
-    <div class="values" data-stagger>
-        <div class="value-card">
-            <span>01</span>
-            <h3>사용자 중심</h3>
-            <p>
-                기능을 만드는 데 그치지 않고<br>
-                사용자 입장에서 한 번 더 봅니다.
-            </p>
-        </div>
-
-        <div class="value-card">
-            <span>02</span>
-            <h3>문제 해결</h3>
-            <p>
-                오류가 생기면 원인을 끝까지 찾고<br>
-                해결 과정을 꼼꼼히 기록합니다.
-            </p>
-        </div>
-
-        <div class="value-card">
-            <span>03</span>
-            <h3>꾸준한 학습</h3>
-            <p>
-                새로운 기술을 직접 적용해 보며<br>
-                개발 역량을 꾸준히 넓혀갑니다.
-            </p>
-        </div>
-    </div>
-</section>
-
-<section id="contact" class="contact">
-    <div class="contact-inner">
-        <p class="eyebrow" data-reveal>CONTACT</p>
-        <h2 data-reveal>함께 이야기해보세요.</h2>
-        <p data-reveal>새로운 프로젝트와 개발에 관한 이야기를 환영합니다.</p>
-
-        <div class="contact-links" data-stagger>
-            <!-- 클릭하면 이메일 주소 복사 -->
-            <button type="button" class="contact-card" data-copy="leedmswls@gmail.com">
-                <span>EMAIL · 클릭해서 복사</span>
-                leedmswls@gmail.com
-            </button>
-
-            <a href="https://github.com/pobingbin99" class="contact-card" target="_blank" rel="noopener">
-                <span>GITHUB · 클릭해서 이동</span>
-                https://github.com/pobingbin99
-            </a>
-        </div>
-    </div>
-</section>
-</main>
-
-<footer class="footer">
-    <p>© 2026 EUNJIN. All rights reserved.</p>
-</footer>
-
-<!-- 맨 위로 버튼 -->
-<a href="#home" class="to-top" aria-label="맨 위로">↑</a>
-
-<!-- 복사 알림 -->
-<div class="toast" role="status" aria-live="polite"></div>
-
-<script src="skills.js"></script>
-<script src="script.js"></script> 
+  <script src="script.js"></script>
 </body>
 </html>
