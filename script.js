@@ -15,15 +15,74 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
    Hero 등장 애니메이션
 ========================= */
 
-window.addEventListener("load", () => {
+const startHero = () => {
     // 초기 상태가 한 번 그려진 뒤 클래스를 붙여야 transition이 동작
     requestAnimationFrame(() => {
         root.classList.add("is-loaded");
 
         // 등장 애니메이션이 끝나면 카드 기울기 반응을 빠르게 전환
-        setTimeout(() => root.classList.add("is-ready"), 1400);
+        setTimeout(() => root.classList.add("is-ready"), 2000);
     });
-});
+};
+
+/*
+   인트로 커튼 와이프
+   로고가 있는 어두운 화면이 비스듬한 가장자리로 왼쪽에서 오른쪽으로 걷히며
+   히어로를 드러낸다.
+*/
+const SLANT = 20;          // 가장자리의 기울기 (화면 너비 대비 %)
+const DURATION = 1000;     // 걷히는 데 걸리는 시간(ms)
+const LOGO_TIME = 1100;    // 로고를 보여주는 시간(ms)
+
+const runIntro = () => {
+    const intro = document.querySelector(".intro");
+
+    // 인트로가 켜진 경우는 항상 맨 위에서 시작
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+
+    const finish = () => {
+        root.classList.add("intro-done");
+        intro?.remove();
+    };
+
+    if (!intro || !intro.animate) {
+        finish();
+        startHero();
+        return;
+    }
+
+    // 화면 전체를 덮은 상태 → 왼쪽 가장자리가 오른쪽으로 지나가며 걷힘
+    const covered = `polygon(${-SLANT}% 0, 100% 0, ${100 + SLANT}% 100%, 0% 100%)`;
+    const cleared = `polygon(100% 0, 100% 0, ${100 + SLANT}% 100%, ${100 + SLANT}% 100%)`;
+
+    const anim = intro.animate(
+        [{ clipPath: covered }, { clipPath: cleared }],
+        { duration: DURATION, easing: "cubic-bezier(.76, 0, .24, 1)", fill: "forwards" }
+    );
+
+    // 걷히기 시작할 때 히어로 등장도 같이 시작
+    startHero();
+
+    anim.onfinish = finish;
+};
+
+// load 이벤트는 외부 이미지·폰트가 느리면 늦어지므로, 최대 3초까지만 기다린다
+let began = false;
+const begin = () => {
+    if (began) return;
+    began = true;
+
+    if (!root.classList.contains("has-intro")) {
+        startHero();
+        return;
+    }
+
+    setTimeout(runIntro, LOGO_TIME);
+};
+
+window.addEventListener("load", begin);
+setTimeout(begin, 3000);
 
 
 /* =========================
@@ -244,128 +303,3 @@ document.querySelectorAll("[data-copy]").forEach((btn) => {
         }
     });
 });
-
-
-/* =========================
-   Hero 링 필드 (마우스 주변의 링이 커지고 초록색으로 변함)
-========================= */
-
-(() => {
-    const heroEl = document.querySelector(".hero");
-    const canvas = document.querySelector(".ring-field");
-    if (!heroEl || !canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    // 조절용 값
-    const GAP = 30;            // 링 사이 간격(px)
-    const R_MIN = 2.5;         // 평소 링 반지름
-    const R_MAX = 10;          // 마우스 가까이에서 최대 반지름
-    const REACH = 160;         // 마우스 영향 범위(px)
-    const EASE = 0.12;         // 따라가는 부드러움 (작을수록 느리게)
-    const BASE = [200, 200, 195];   // 평소 링 색
-    const ACCENT = [61, 122, 90];   // 마우스 근처 링 색 (포인트 그린)
-
-    let w = 0, h = 0, dpr = 1;
-    let rings = [];
-    let mouse = null;
-    let running = false;
-
-    const build = () => {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = heroEl.clientWidth;
-        h = heroEl.clientHeight;
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        const cols = Math.floor(w / GAP) + 1;
-        const rows = Math.floor(h / GAP) + 1;
-        const offX = (w - (cols - 1) * GAP) / 2;
-        const offY = (h - (rows - 1) * GAP) / 2;
-
-        rings = [];
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                rings.push({ x: offX + c * GAP, y: offY + r * GAP, v: 0 });
-            }
-        }
-        draw();
-    };
-
-    const draw = () => {
-        ctx.clearRect(0, 0, w, h);
-        ctx.lineWidth = 1.2;
-
-        for (const p of rings) {
-            const rad = R_MIN + (R_MAX - R_MIN) * p.v;
-            const cr = Math.round(BASE[0] + (ACCENT[0] - BASE[0]) * p.v);
-            const cg = Math.round(BASE[1] + (ACCENT[1] - BASE[1]) * p.v);
-            const cb = Math.round(BASE[2] + (ACCENT[2] - BASE[2]) * p.v);
-
-            ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${0.55 + 0.45 * p.v})`;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, rad, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-    };
-
-    // 각 링의 목표값(마우스와 가까울수록 1)으로 부드럽게 이동
-    const tick = () => {
-        let moving = false;
-
-        for (const p of rings) {
-            let target = 0;
-            if (mouse) {
-                const d = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-                if (d < REACH) {
-                    const t = 1 - d / REACH;
-                    target = t * t * (3 - 2 * t);       // 가장자리가 부드럽게 줄어드는 곡선
-                }
-            }
-
-            const diff = target - p.v;
-            if (Math.abs(diff) > 0.002) {
-                p.v += diff * EASE;
-                moving = true;
-            } else {
-                p.v = target;
-            }
-        }
-
-        draw();
-
-        if (moving) requestAnimationFrame(tick);
-        else running = false;
-    };
-
-    const start = () => {
-        if (running) return;
-        running = true;
-        requestAnimationFrame(tick);
-    };
-
-    build();
-
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(build, 150);
-    });
-
-    // 마우스가 있는 기기에서만 반응 (터치 기기와 '움직임 줄이기'는 정지된 링만 표시)
-    const hasMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!hasMouse || reduceMotion) return;
-
-    heroEl.addEventListener("pointermove", (e) => {
-        const rect = heroEl.getBoundingClientRect();
-        mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-        start();
-    });
-
-    heroEl.addEventListener("pointerleave", () => {
-        mouse = null;
-        start();
-    });
-})();
-

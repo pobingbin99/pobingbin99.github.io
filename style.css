@@ -228,32 +228,15 @@ img {
     display: flex;
     align-items: center;
 
-    padding: 80px 0;
+    padding: 36px 0 56px;
 
-    background-color: var(--paper);
+    /* 은은하게 번지는 고정 배경 빛 (움직이지 않음) */
+    background:
+        radial-gradient(620px 420px at 88% 12%, rgba(61, 122, 90, .10), transparent 70%),
+        radial-gradient(520px 380px at 6% 92%, rgba(110, 140, 200, .10), transparent 70%),
+        var(--paper);
 
     overflow: hidden;
-}
-
-/* 마우스에 반응하는 링 필드 (script.js에서 그림) */
-.ring-field {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* 가장자리로 갈수록 링이 사라지게 */
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-
-    background: radial-gradient(ellipse at 40% 50%, transparent 30%, var(--paper) 75%);
-    pointer-events: none;
 }
 
 .hero-inner {
@@ -264,9 +247,9 @@ img {
     margin: 0 auto;
 
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 300px 1fr;
 
-    gap: 100px;
+    gap: clamp(40px, 6vw, 80px);
     align-items: center;
 }
 
@@ -281,22 +264,12 @@ img {
 }
 
 .hero h1 {
-    font-size: clamp(48px, 7vw, 82px);
+    font-size: clamp(36px, min(5.3vw, 8.2vh), 76px);
     line-height: 1.1;
     font-weight: 800;
 
-    letter-spacing: -3px;
-}
-
-/* 제목 한 줄씩 아래에서 올라오는 마스크 효과 */
-.hero h1 .line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: .06em;
-}
-
-.hero h1 .line > span {
-    display: block;
+    letter-spacing: -.045em;
+    white-space: nowrap;
 }
 
 .hero h1 em {
@@ -304,10 +277,16 @@ img {
     color: var(--sub);
 }
 
-.hero-description {
-    margin-top: 32px;
+/* 크게 보여주는 소개 멘트 */
+.hero-lead {
+    margin-top: 22px;
 
-    font-size: 18px;
+    font-size: clamp(22px, min(3.1vw, 4.8vh), 42px);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -.04em;
+    white-space: nowrap;
+
     color: var(--sub);
 }
 
@@ -319,8 +298,8 @@ img {
 
     overflow: hidden;
 
-    color: var(--ink);
-    font-weight: 600;
+    color: var(--accent);
+    font-weight: 800;
 }
 
 .rotator-word {
@@ -396,24 +375,37 @@ img {
     border-color: var(--ink);
 }
 
-/* 프로필 카드: 위는 큰 사진, 아래는 흰 바탕의 소개 글 */
+/* 프로필 카드: 사진만 */
 .hero-card {
+    position: relative;
+    z-index: 0;
     width: 100%;
-    max-width: 360px;
-    justify-self: end;          /* 오른쪽 끝 정렬 */
+    max-width: 300px;
 
-    padding: 14px;
+    padding: 10px;
 
-    border: 1px solid #dededb;
-    border-radius: 20px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
 
     background: #fff;
 
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .18);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .2);
 
     transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     transition: transform .5s var(--ease), box-shadow .3s;
     will-change: transform;
+}
+
+/* 카드 뒤에 살짝 비껴 있는 포인트색 테두리 */
+.hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 16px -16px -16px 16px;
+    z-index: -1;
+
+    border: 1.5px solid var(--accent);
+    border-radius: 22px;
+    opacity: .35;
 }
 
 .hero-card.is-tilting {
@@ -426,7 +418,7 @@ img {
     width: 100%;
     aspect-ratio: 4 / 5;        /* 세로 증명사진 비율에 맞춰 사진 전체가 보이도록 */
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     object-fit: cover;
     object-position: center;
@@ -434,40 +426,21 @@ img {
     background: #e9e9e5;
 }
 
-.hero-card-body {
-    padding: 22px 12px 10px;
-}
-
-.profile-label {
-    margin-bottom: 8px;
-
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-
-    color: #888;
-}
-
-.hero-card h3 {
-    margin-bottom: 10px;
-
-    font-size: 22px;
-    line-height: 1.3;
-}
-
-.hero-card-desc {
-    font-size: 14px;
-    color: #777;
-}
-
 /* 스크롤 안내 */
 /* =========================
    Hero 등장 애니메이션 (페이지 로드 시 1회)
 ========================= */
 
-.js .hero h1 .line > span {
-    transform: translateY(105%);
-    transition: transform 1s var(--ease);
+/* 마스크 텍스트 리빌: 글자가 가운데에서 양옆으로 열리듯 나타남 */
+.mask-line {
+    display: block;
+    padding: .06em 0 .1em;
+    margin: -.06em 0 -.1em;
+}
+
+.js .mask-line {
+    clip-path: inset(0 50% 0 50%);
+    transition: clip-path 1.1s var(--ease);
     transition-delay: var(--d, 0ms);
 }
 
@@ -483,8 +456,13 @@ img {
     transition-delay: var(--d, 0ms);
 }
 
-.is-loaded .hero h1 .line > span {
-    transform: translateY(0);
+.is-loaded .mask-line {
+    clip-path: inset(0 0 0 0);
+}
+
+/* 등장이 끝난 뒤에는 마스크를 풀어서 그림자·반짝이가 잘리지 않게 */
+.is-ready .mask-line {
+    clip-path: none;
 }
 
 .is-loaded .hero-fade {
@@ -627,49 +605,45 @@ img {
 
 
 /* =========================
-   About
+   Hero 안의 About (축약본)
 ========================= */
 
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
+.hero-about {
+    max-width: 680px;
+    margin-top: clamp(24px, 4vh, 40px);
+    padding-top: clamp(22px, 3.4vh, 34px);
 
-    gap: 100px;
+    border-top: 1px solid var(--line);
 }
 
-.small-title {
-    margin-bottom: 20px;
+.hero-about h2 {
+    position: relative;
+    margin-bottom: 14px;
+    padding-left: 18px;
 
-    font-size: 12px;
-    font-weight: 700;
-
-    letter-spacing: 1.5px;
-    color: #888;
+    font-size: clamp(20px, min(2.2vw, 3.6vh), 30px);
+    line-height: 1.3;
+    letter-spacing: -.04em;
+    white-space: nowrap;
 }
 
-.about-intro h3 {
-    font-size: 42px;
-    line-height: 1.2;
+/* 제목 앞의 포인트 막대 */
+.hero-about h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .18em;
+    bottom: .18em;
 
-    letter-spacing: -2px;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--accent);
 }
 
-.about-content {
-    justify-self: end;      /* 오른쪽 열의 끝에 붙여서, 왼쪽에 여백이 생기도록 */
-    width: fit-content;     /* 가장 긴 줄 길이만큼만 차지 */
-    max-width: 720px;
-}
-
-.about-content > p {
-    margin-bottom: 28px;
-
-    font-size: 19px;
-    line-height: 1.8;
+.hero-about p {
+    font-size: 16px;
+    line-height: 1.85;
     color: var(--sub);
-}
-
-.about-content > p:last-child {
-    margin-bottom: 0;
 }
 
 
@@ -777,7 +751,7 @@ img {
 ========================= */
 
 .stack-dialog {
-    width: min(440px, calc(100% - 40px));
+    width: min(480px, calc(100% - 40px));
     margin: auto;
     padding: 32px;
 
@@ -796,6 +770,10 @@ img {
 
 .stack-dialog[open] {
     animation: dialogIn .35s var(--ease);
+}
+
+.sd-desc {
+     white-space: pre-line;
 }
 
 @keyframes dialogIn {
@@ -1538,23 +1516,38 @@ img {
 
     .hero {
         min-height: auto;
-        padding: 90px 0 110px;
+        padding: 56px 0 80px;
     }
 
     .hero-inner {
         grid-template-columns: 1fr;
 
-        gap: 50px;
+        gap: 44px;
     }
 
     .hero h1 {
-        font-size: 48px;
-        letter-spacing: -2px;
+        font-size: 7.6vw;
+        letter-spacing: -.04em;
+        white-space: normal;
+    }
+
+    .hero-lead {
+        font-size: 5.4vw;
+        white-space: normal;
+    }
+
+    .hero-about h2 {
+        font-size: 5vw;
+        white-space: normal;
+    }
+
+    .hero-main {
+        order: 1;
     }
 
     .hero-card {
-        max-width: 360px;
-        justify-self: start;
+        order: 2;
+        max-width: 240px;
     }
 
     .marquee-track {
@@ -1567,24 +1560,6 @@ img {
 
     .section-title {
         margin-bottom: 48px;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 40px;
-    }
-
-    .about-content {
-        justify-self: start;
-    }
-
-    .about-content > p {
-        font-size: 17px;
-    }
-
-    .about-intro h3 {
-        font-size: 34px;
     }
 
     .stack-group {
@@ -1674,6 +1649,22 @@ img {
     }
 }
 
+/* 낮은 화면(노트북 등)에서도 히어로가 한 화면에 들어오도록 */
+@media (min-width: 801px) and (max-height: 760px) {
+    .hero-about p {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .hero-card {
+        max-width: 260px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 260px 1fr;
+    }
+}
+
 @media (max-width: 480px) {
     .practice-grid {
         grid-template-columns: 1fr;
@@ -1703,7 +1694,7 @@ img {
     .js [data-reveal],
     .js [data-stagger] > *,
     .js .hero-fade,
-    .js .hero h1 .line > span {
+    .js .mask-line {
         opacity: 1;
         transform: none;
         clip-path: none;
@@ -1721,11 +1712,6 @@ img {
     --glare: rgba(255, 255, 255, .95);
     --spark: #4fb584;
     --glare-speed: 1s;
-}
-
-/* 등장 애니메이션이 끝난 뒤에는 그림자·반짝이가 잘리지 않게 */
-.is-ready .hero h1 .line {
-    overflow: visible;
 }
 
 .glow-text {
@@ -1785,6 +1771,16 @@ img {
 .sparkle.s4 { left: 18%;    bottom: -10px; width: 18px; height: 18px; }
 .sparkle.s5 { right: 22%;   bottom: -8px;  width: 22px; height: 22px; }
 
+/* 이름 주변 반짝임: 기본 상태에서 항상 순차적으로 반짝임 */
+.is-ready .hero h1 .sparkle {
+    animation: sparkleTwinkle 1.8s ease-in-out infinite;
+}
+
+.is-ready .hero h1 .s2 { animation-delay: .36s; }
+.is-ready .hero h1 .s3 { animation-delay: .72s; }
+.is-ready .hero h1 .s4 { animation-delay: 1.08s; }
+.is-ready .hero h1 .s5 { animation-delay: 1.44s; }
+
 @media (hover: hover) and (pointer: fine) {
     .is-ready .hero h1:hover .glow-text::before {
         opacity: 1;
@@ -1797,14 +1793,7 @@ img {
         animation: glareSweep var(--glare-speed) var(--ease) 1 forwards;
     }
 
-    .is-ready .hero h1:hover .sparkle {
-        animation: sparkleTwinkle 1.2s ease-in-out infinite;
-    }
-
-    .is-ready .hero h1:hover .s2 { animation-delay: .2s; }
-    .is-ready .hero h1:hover .s3 { animation-delay: .4s; }
-    .is-ready .hero h1:hover .s4 { animation-delay: .6s; }
-    .is-ready .hero h1:hover .s5 { animation-delay: .8s; }
+    /* sparkle 애니메이션은 hover와 무관하게 항상 실행 */
 }
 
 @keyframes glareSweep {
@@ -1821,3 +1810,524 @@ img {
     .sparkle { display: none; }
 }
 
+
+/* =========================
+   Intro 커튼 와이프
+   - 로고가 있는 어두운 화면이 비스듬한 가장자리로 왼쪽에서 오른쪽으로 걷히며 히어로가 드러남
+   - 기울기·시간은 script.js 의 SLANT / DURATION
+========================= */
+
+.intro {
+    display: none;
+}
+
+.has-intro .intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--ink);
+    color: #fff;
+}
+
+/* 인트로 동안 스크롤 잠금 */
+/* 인트로 동안 스크롤 잠금 */
+.has-intro:not(.intro-done) {
+    overflow: hidden;
+}
+
+.intro-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    font-weight: 800;
+    letter-spacing: -1.5px;
+
+    opacity: 0;
+    transform: translateY(16px);
+    animation: introLogo .8s var(--ease) .1s forwards;
+}
+
+.intro-name {
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: .95;
+}
+
+.intro-dot {
+    color: var(--accent);
+}
+
+.intro-portfolio {
+    margin-top: 8px;
+
+    font-size: clamp(30px, 5vw, 54px);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: .02em;
+
+    color: rgba(255, 255, 255, .72);
+}
+
+@keyframes introLogo {
+    to { opacity: 1; transform: none; }
+}
+
+
+/* =========================================================
+   2026 PORTFOLIO REFRESH
+   - Hero를 넓게 사용하고 콘텐츠를 비대칭으로 배치
+   - 그린/베이지 계열을 줄이고 차분한 인디고 포인트 사용
+   - 기존 HTML / JS 기능은 그대로 유지
+========================================================= */
+
+:root {
+    --ink: #17191f;
+    --sub: #626875;
+    --muted: #9aa0ad;
+    --line: #e3e6ed;
+    --paper: #f7f8fb;
+    --accent: #5b5ce2;
+    --accent-soft: #eef0ff;
+}
+
+/* ---------- Header ---------- */
+
+.header {
+    background: rgba(255, 255, 255, .78);
+    border-bottom-color: rgba(23, 25, 31, .08);
+}
+
+.scroll-progress {
+    background: var(--accent);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav a::after {
+    background: var(--accent);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+    min-height: calc(100svh - 72px);
+    padding: 0;
+    background:
+        radial-gradient(700px 520px at 92% 18%, rgba(91, 92, 226, .11), transparent 68%),
+        radial-gradient(560px 420px at 8% 88%, rgba(150, 157, 255, .08), transparent 70%),
+        var(--paper);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .34;
+    background-image:
+        linear-gradient(rgba(23, 25, 31, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 25, 31, .035) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.hero-inner {
+    width: min(1280px, calc(100% - 80px));
+    min-height: calc(100svh - 72px);
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: clamp(70px, 9vw, 150px);
+    align-items: stretch;
+}
+
+/* 사진은 오른쪽에 조금 더 높게 배치하고, 카드 장식은 절제 */
+.hero-card {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    position: relative;
+    top: -5vh;
+    width: min(100%, 340px);
+    max-width: 340px;
+    margin-top: 0;
+    padding: 8px;
+    border: 1px solid rgba(23, 25, 31, .08);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, .92);
+    box-shadow:
+        0 28px 70px -38px rgba(23, 25, 31, .32),
+        0 8px 24px -18px rgba(91, 92, 226, .18);
+}
+
+/* 기존의 크게 삐져나오는 보라색 테두리 대신 작은 포인트만 */
+.hero-card::before {
+    inset: auto -7px -7px auto;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-right: 1px solid rgba(91, 92, 226, .28);
+    border-bottom: 1px solid rgba(91, 92, 226, .28);
+    border-radius: 0 0 12px 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+.hero-photo {
+    aspect-ratio: 4 / 5;
+    border-radius: 19px;
+}
+
+/* 텍스트는 왼쪽 상단부터 시작 */
+.hero-main {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: clamp(64px, 8vh, 96px) 0 54px;
+    min-width: 0;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin-bottom: 26px;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+}
+
+.hero h1 {
+    max-width: none;
+    font-size: clamp(44px, 5.7vw, 76px);
+    line-height: 1.03;
+    letter-spacing: -.065em;
+    white-space: nowrap;
+}
+
+.hero h1 .mask-line {
+    max-width: 100%;
+}
+
+.hero h1 em {
+    color: var(--ink);
+}
+
+.hero h1 .glow-text:nth-child(2) {
+    color: var(--accent);
+}
+
+/* 기존 화려한 glow는 훨씬 절제 */
+.hero h1 {
+    --glow-shadow: #5b5ce2;
+    --spark: #5b5ce2;
+    --glare-speed: .8s;
+}
+
+.hero-lead {
+    max-width: 760px;
+    margin-top: 42px;
+    font-size: clamp(22px, 2.5vw, 34px);
+    line-height: 1.45;
+    letter-spacing: -.045em;
+    white-space: normal;
+    color: var(--sub);
+}
+
+.rotator {
+    color: var(--accent);
+}
+
+.hero-buttons {
+    margin-top: 42px;
+    gap: 10px;
+}
+
+.btn {
+    padding: 13px 20px;
+    border-radius: 999px;
+}
+
+.btn.primary {
+    background: var(--ink);
+}
+
+.btn.primary:hover {
+    background: var(--accent);
+    box-shadow: 0 12px 28px rgba(91, 92, 226, .20);
+}
+
+.btn.secondary {
+    border-color: var(--line);
+    background: rgba(255,255,255,.65);
+}
+
+.btn.secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* About 영역을 아래로 밀지 않고 본문 바로 아래에 배치 */
+.hero-about {
+    width: min(700px, 100%);
+    max-width: 700px;
+    margin-top: clamp(58px, 7vh, 82px);
+    padding-top: 26px;
+    border-top-color: var(--line);
+}
+
+.hero-about h2 {
+    margin-bottom: 12px;
+    padding-left: 0;
+    font-size: clamp(18px, 1.8vw, 24px);
+    letter-spacing: -.035em;
+}
+
+.hero-about h2::before {
+    display: none;
+}
+
+.hero-about p {
+    max-width: 650px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--sub);
+}
+
+/* 이름 주변 반짝이는 장식은 최소화 */
+.sparkle.s1 { left: -10px; width: 18px; height: 18px; }
+.sparkle.s2 { width: 12px; height: 12px; }
+.sparkle.s3 { right: -8px; width: 14px; height: 14px; }
+.sparkle.s4,
+.sparkle.s5 { display: block; }
+
+/* ---------- Marquee ---------- */
+
+.marquee {
+    padding: 18px 0;
+    border-color: var(--line);
+}
+
+.marquee-track {
+    font-size: 21px;
+    color: #b3b7c2;
+}
+
+.marquee-track i {
+    color: var(--accent);
+}
+
+/* ---------- Section ---------- */
+
+.section {
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+.gray-section {
+    background: #f5f6f9;
+}
+
+.section-title {
+    margin-bottom: 76px;
+}
+
+.section-title p {
+    color: var(--accent);
+}
+
+.section-title h2 {
+    letter-spacing: -.045em;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 800px) {
+    .hero {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .hero::before {
+        background-size: 48px 48px;
+    }
+
+    .hero-inner {
+        width: min(100% - 40px, 680px);
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 52px;
+        padding: 58px 0 76px;
+    }
+
+    .hero-main {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 0;
+    }
+
+    .hero-card {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: auto;
+        justify-self: start;
+        width: min(72vw, 280px);
+        margin: 0;
+    }
+
+    .hero h1 {
+        max-width: 100%;
+        font-size: clamp(42px, 12vw, 64px);
+        line-height: 1.06;
+        white-space: normal;
+    }
+
+    .hero-lead {
+        margin-top: 32px;
+        font-size: clamp(20px, 5.5vw, 28px);
+    }
+
+    .hero-buttons {
+        margin-top: 32px;
+    }
+
+    .hero-about {
+        margin-top: 76px;
+    }
+
+    .hero-about h2 {
+        font-size: 19px;
+    }
+
+    .hero-about p {
+        font-size: 14px;
+    }
+
+    .section {
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1100px) {
+    .hero-inner {
+        width: min(100% - 56px, 1000px);
+        grid-template-columns: minmax(0, 1fr) 290px;
+        gap: 60px;
+    }
+
+    .hero-card {
+        width: 290px;
+        max-width: 290px;
+    }
+
+    .hero h1 {
+        font-size: clamp(42px, 5.4vw, 64px);
+        white-space: nowrap;
+    }
+
+    .hero-lead {
+        font-size: clamp(20px, 2.5vw, 30px);
+    }
+}
+
+/* 노트북 높이가 낮아도 왼쪽 상단 구조는 유지 */
+@media (min-width: 801px) and (max-height: 760px) {
+    .hero-main {
+        padding-top: 50px;
+        padding-bottom: 36px;
+    }
+
+    .hero-card {
+        width: 270px;
+        max-width: 270px;
+    }
+
+    .hero-inner {
+        grid-template-columns: minmax(0, 1fr) 290px;
+    }
+
+    .hero h1 {
+        font-size: clamp(40px, 5vw, 60px);
+        white-space: nowrap;
+    }
+
+    .hero-lead {
+        margin-top: 28px;
+        font-size: clamp(20px, 2.5vw, 28px);
+    }
+
+    .hero-about {
+        padding-top: 18px;
+    }
+
+    .hero-about p {
+        font-size: 13px;
+        line-height: 1.65;
+    }
+}
+
+/* 접근성: 움직임 줄이기 설정이 마지막 override보다 우선 */
+@media (prefers-reduced-motion: reduce) {
+    .hero h1:hover .glow-text::before,
+    .hero h1:hover .glow-text::after {
+        opacity: 0;
+        animation: none;
+    }
+
+    .sparkle {
+        display: none;
+    }
+}
+
+
+/* ---------- Hero final tuning ---------- */
+
+@media (max-width: 560px) {
+    .hero h1 {
+        white-space: normal;
+        font-size: clamp(40px, 11vw, 56px);
+    }
+
+    .hero-about {
+        margin-top: 56px;
+    }
+}
+
+
+/* ---------- Profile card final position ---------- */
+
+@media (min-width: 801px) and (max-width: 1100px) {
+    .hero-card {
+        top: -3vh;
+    }
+}
+
+@media (min-width: 801px) and (max-height: 760px) {
+    .hero-card {
+        top: -2vh;
+    }
+}
+
+@media (max-width: 800px) {
+    .hero-card {
+        top: 0;
+    }
+}
